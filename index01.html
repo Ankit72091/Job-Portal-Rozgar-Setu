@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rojgar Setu — Find jobs. Hire talent.</title>
+<meta name="description" content="Rojgar Setu is a free job portal connecting job seekers and employers across India.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style01.css">
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand" data-nav="home">
+      <span class="brand-mark">
+        <svg viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 17 L7 7 L12 13 L17 4 L23 17" stroke="#F7F6F2" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Rojgar <span class="brand-hi">Setu</span>
+    </a>
+
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#" class="nav-link" data-nav="home">Home</a></li>
+      <li><a href="#" class="nav-link" data-nav="jobs">Find Jobs</a></li>
+      <li><a href="#" class="nav-link" data-nav="post-job">Post a Job</a></li>
+      <li><a href="#" class="nav-link" data-nav="about">About</a></li>
+    </ul>
+
+    <div class="nav-actions" id="nav-actions">
+      <!-- filled by script.js depending on login state -->
+    </div>
+
+    <button class="hamburger" id="hamburger-btn" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="toast-container" id="toast-container"></div>
+
+<main>
+
+<!-- ================= HOME PAGE ================= -->
+<div class="page active" id="page-home">
+
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <div class="hero-eyebrow-row">
+          <span class="eyebrow">रोज़गार सेतु</span>
+        </div>
+        <h1 class="hero-title">Cross the bridge to your <span class="hl">next job</span>.</h1>
+        <p class="hero-sub">Search openings from companies across India, apply in a few clicks, and keep every application in one place — completely free for job seekers.</p>
+
+        <form class="search-bar" id="hero-search-form">
+          <div class="search-field">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            <input type="text" id="hero-keyword" placeholder="Job title, skill or company">
+          </div>
+          <div class="search-field">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-7.5 7-12a7 7 0 10-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></svg>
+            <input type="text" id="hero-location" placeholder="City or state">
+          </div>
+          <button type="submit" class="btn btn-primary">Search Jobs</button>
+        </form>
+
+        <div class="hero-stats">
+          <div class="stat"><div class="stat-num" id="stat-jobs">0</div><div class="stat-label">Live job openings</div></div>
+          <div class="stat"><div class="stat-num" id="stat-companies">0</div><div class="stat-label">Hiring companies</div></div>
+          <div class="stat"><div class="stat-num" id="stat-cities">0</div><div class="stat-label">Cities covered</div></div>
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <div class="hero-card">
+          <div class="mini-job-title">Frontend Developer</div>
+          <div class="mini-job-meta"><span class="mini-badge">Remote</span> Bengaluru · ₹6–10 LPA</div>
+        </div>
+        <div class="hero-card">
+          <div class="mini-job-title">Digital Marketing Executive</div>
+          <div class="mini-job-meta"><span class="mini-badge">Full-time</span> Pune · ₹3.5–5 LPA</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="bridge-divider">
+    <span class="pier-tag left">Talent</span>
+    <span class="pier-count" id="bridge-count">0 jobs crossing today</span>
+    <span class="pier-tag right">Industry</span>
+    <svg class="truss truss-marigold" viewBox="0 0 1200 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <polyline points="0,46 75,12 150,46 225,12 300,46 375,12 450,46 525,12 600,46 675,12 750,46 825,12 900,46 975,12 1050,46 1125,12 1200,46" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <line x1="0" y1="46" x2="1200" y2="46" stroke="currentColor" stroke-width="2.5" opacity=".5"/>
+    </svg>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="section-header center">
+        <span class="eyebrow">Browse by category</span>
+        <h2 class="section-title">Find work in the field you know best</h2>
+      </div>
+      <div class="categories-grid" id="categories-grid"><!-- filled by script.js --></div>
+    </div>
+  </section>
+
+  <section style="background:var(--paper-dim); padding:88px 0;">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Crossing now</span>
+        <h2 class="section-title">Recently posted openings</h2>
+      </div>
+      <div class="jobs-grid" id="featured-jobs-grid"><!-- filled by script.js --></div>
+      <div class="text-center" style="margin-top:36px;">
+        <a href="#" class="btn btn-outline" data-nav="jobs">View all jobs</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-header center">
+        <span class="eyebrow">How it works</span>
+        <h2 class="section-title">Three steps across the bridge</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-pier">01</div>
+          <h3>Build your profile</h3>
+          <p>Register free in under a minute and tell us what kind of work you're looking for.</p>
+        </div>
+        <div class="step">
+          <div class="step-pier">02</div>
+          <h3>Apply in one click</h3>
+          <p>Save your details once and reuse them to apply to any job on the platform.</p>
+        </div>
+        <div class="step">
+          <div class="step-pier">03</div>
+          <h3>Get hired</h3>
+          <p>Hear back directly from employers by email and start your new role.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container cta-inner">
+      <div>
+        <h2>Hiring? Post a job in two minutes.</h2>
+        <p>Reach job seekers across India at no cost — no subscriptions, no hidden fees.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="#" class="btn btn-primary" data-nav="post-job">Post a job for free</a>
+        <a href="#" class="btn btn-outline-light" data-nav="about">Contact our team</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-header center">
+        <span class="eyebrow">From people who crossed</span>
+        <h2 class="section-title">Stories from job seekers and employers</h2>
+      </div>
+      <div class="testimonials">
+        <div class="testimonial">
+          <p>"I found a developer role within three weeks of creating my profile. The filters made it easy to focus on remote openings."</p>
+          <div class="testimonial-name">Ananya Verma</div>
+          <div class="testimonial-role">Software Engineer, Pune</div>
+        </div>
+        <div class="testimonial">
+          <p>"We filled two open sales positions in the same month we posted them, without paying a recruiter."</p>
+          <div class="testimonial-name">Karan Mehta</div>
+          <div class="testimonial-role">HR Lead, Skyline Retail</div>
+        </div>
+        <div class="testimonial">
+          <p>"Having every application in one dashboard meant I stopped tracking things in a spreadsheet."</p>
+          <div class="testimonial-name">Fatima Sheikh</div>
+          <div class="testimonial-role">Operations Executive, Hyderabad</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ================= JOBS PAGE ================= -->
+<div class="page" id="page-jobs">
+  <div class="page-header">
+    <div class="container">
+      <h1>Find your next job</h1>
+      <p class="muted mt-0">Search and filter through live openings across every category and city.</p>
+      <form class="search-bar jobs-toolbar" id="jobs-search-form">
+        <div class="search-field">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input type="text" id="jobs-keyword" placeholder="Job title, skill or company">
+        </div>
+        <div class="search-field">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-7.5 7-12a7 7 0 10-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></svg>
+          <input type="text" id="jobs-keyword-location" placeholder="City or state">
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="container jobs-layout">
+    <aside class="filters-panel">
+      <div class="filters-panel-head">
+        <h3>Filters</h3>
+        <button class="btn btn-ghost btn-sm" id="clear-filters-btn" type="button">Clear all</button>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-group-title">Category</span>
+        <div id="filter-category-list"><!-- filled by script.js --></div>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-group-title">Job type</span>
+        <label class="checkbox-row"><input type="checkbox" name="jobtype" value="Full-time"> Full-time</label>
+        <label class="checkbox-row"><input type="checkbox" name="jobtype" value="Part-time"> Part-time</label>
+        <label class="checkbox-row"><input type="checkbox" name="jobtype" value="Internship"> Internship</label>
+        <label class="checkbox-row"><input type="checkbox" name="jobtype" value="Remote"> Remote</label>
+        <label class="checkbox-row"><input type="checkbox" name="jobtype" value="Contract"> Contract</label>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-group-title">Experience</span>
+        <label class="checkbox-row"><input type="checkbox" name="experience" value="Fresher"> Fresher</label>
+        <label class="checkbox-row"><input type="checkbox" name="experience" value="1-3 years"> 1–3 years</label>
+        <label class="checkbox-row"><input type="checkbox" name="experience" value="3-5 years"> 3–5 years</label>
+        <label class="checkbox-row"><input type="checkbox" name="experience" value="5+ years"> 5+ years</label>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-group-title">Location</span>
+        <select class="filter-select" id="filter-location">
+          <option value="">All locations</option>
+        </select>
+      </div>
+    </aside>
+
+    <div>
+      <div class="results-bar">
+        <div class="results-count" id="results-count">Showing 0 of 0 jobs</div>
+        <select id="sort-jobs" style="width:auto;">
+          <option value="newest">Newest first</option>
+          <option value="salary-high">Salary: high to low</option>
+          <option value="salary-low">Salary: low to high</option>
+        </select>
+      </div>
+
+      <div class="jobs-list" id="jobs-list"><!-- filled by script.js --></div>
+
+      <div class="empty-state" id="jobs-empty" style="display:none;">
+        <h3>No jobs match these filters</h3>
+        <p>Try clearing a filter or searching a different keyword.</p>
+        <button class="btn btn-outline btn-sm" id="empty-clear-btn" type="button">Clear all filters</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= POST A JOB PAGE ================= -->
+<div class="page" id="page-post-job">
+  <section>
+    <div class="container">
+      <div class="section-header center">
+        <span class="eyebrow">For employers</span>
+        <h2 class="section-title">Post a job for free</h2>
+        <p>Your listing goes live immediately and appears in search the moment you publish it.</p>
+      </div>
+
+      <form class="form-card" id="post-job-form" novalidate>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="pj-company">Company name <span class="req">*</span></label>
+            <input type="text" id="pj-company" required>
+            <span class="field-error">Enter your company name.</span>
+          </div>
+          <div class="form-group">
+            <label for="pj-title">Job title <span class="req">*</span></label>
+            <input type="text" id="pj-title" required>
+            <span class="field-error">Enter a job title.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="pj-category">Category <span class="req">*</span></label>
+            <select id="pj-category" required>
+              <option value="">Select a category</option>
+              <option>Technology</option>
+              <option>Marketing</option>
+              <option>Design</option>
+              <option>Sales</option>
+              <option>Finance</option>
+              <option>Customer Support</option>
+              <option>Human Resources</option>
+              <option>Operations</option>
+            </select>
+            <span class="field-error">Choose a category.</span>
+          </div>
+          <div class="form-group">
+            <label for="pj-location">Location <span class="req">*</span></label>
+            <input type="text" id="pj-location" placeholder="e.g. Indore, Madhya Pradesh" required>
+            <span class="field-error">Enter a location.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="pj-type">Job type <span class="req">*</span></label>
+            <select id="pj-type" required>
+              <option value="">Select job type</option>
+              <option>Full-time</option>
+              <option>Part-time</option>
+              <option>Internship</option>
+              <option>Remote</option>
+              <option>Contract</option>
+            </select>
+            <span class="field-error">Choose a job type.</span>
+          </div>
+          <div class="form-group">
+            <label for="pj-experience">Experience level <span class="req">*</span></label>
+            <select id="pj-experience" required>
+              <option value="">Select experience</option>
+              <option>Fresher</option>
+              <option>1-3 years</option>
+              <option>3-5 years</option>
+              <option>5+ years</option>
+            </select>
+            <span class="field-error">Choose an experience level.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="pj-salary-min">Minimum salary (₹ LPA)</label>
+            <input type="number" id="pj-salary-min" min="0" step="0.1" placeholder="e.g. 4">
+          </div>
+          <div class="form-group">
+            <label for="pj-salary-max">Maximum salary (₹ LPA)</label>
+            <input type="number" id="pj-salary-max" min="0" step="0.1" placeholder="e.g. 6">
+          </div>
+
+          <div class="form-group full">
+            <label for="pj-skills">Required skills</label>
+            <input type="text" id="pj-skills" placeholder="e.g. Excel, Communication, Tally">
+            <span class="helper-text">Separate each skill with a comma.</span>
+          </div>
+
+          <div class="form-group full">
+            <label for="pj-description">Job description <span class="req">*</span></label>
+            <textarea id="pj-description" required placeholder="Describe the role, responsibilities and what a typical day looks like."></textarea>
+            <span class="field-error">Add a description so candidates know what to expect.</span>
+          </div>
+
+          <div class="form-group full">
+            <label for="pj-email">Contact email <span class="req">*</span></label>
+            <input type="email" id="pj-email" placeholder="hr@yourcompany.com" required>
+            <span class="helper-text">Applications will reference this email address.</span>
+            <span class="field-error">Enter a valid email address.</span>
+          </div>
+        </div>
+
+        <div class="form-foot">
+          <span class="helper-text">Fields marked <span class="req">*</span> are required.</span>
+          <button type="submit" class="btn btn-primary">Post job</button>
+        </div>
+      </form>
+
+      <div class="form-card form-success" id="post-job-success">
+        <div class="check-circle">✓</div>
+        <h3>Your job is live</h3>
+        <p class="muted">It's already visible to job seekers searching Rojgar Setu.</p>
+        <button class="btn btn-primary" id="post-job-view-btn" type="button">View it in job listings</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= LOGIN PAGE ================= -->
+<div class="page" id="page-login">
+  <div class="auth-layout">
+    <div class="auth-aside">
+      <a href="#" data-nav="home" class="nav-brand" style="color:var(--paper);">
+        <span class="brand-mark"><svg viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 17 L7 7 L12 13 L17 4 L23 17" stroke="#F7F6F2" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        Rojgar Setu
+      </a>
+      <div>
+        <p class="auth-quote">"A bridge is only as strong as the people who cross it daily."</p>
+        <p class="auth-quote-by">— Rojgar Setu team</p>
+      </div>
+    </div>
+    <div class="auth-form-panel">
+      <div class="form-card narrow">
+        <h2>Welcome back</h2>
+        <p class="muted">Log in to manage your applications or your job posts.</p>
+        <div class="auth-error" id="login-error"></div>
+        <form id="login-form" novalidate>
+          <div class="form-group">
+            <label for="login-email">Email <span class="req">*</span></label>
+            <input type="email" id="login-email" required>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password <span class="req">*</span></label>
+            <input type="password" id="login-password" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Log in</button>
+        </form>
+        <p class="auth-switch">New to Rojgar Setu? <a href="#" data-nav="register">Create an account</a></p>
+        <p class="helper-text text-center" style="margin-top:16px;">Demo project — your data stays in this browser only, nothing is sent to a server.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= REGISTER PAGE ================= -->
+<div class="page" id="page-register">
+  <div class="auth-layout">
+    <div class="auth-aside">
+      <a href="#" data-nav="home" class="nav-brand" style="color:var(--paper);">
+        <span class="brand-mark"><svg viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 17 L7 7 L12 13 L17 4 L23 17" stroke="#F7F6F2" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        Rojgar Setu
+      </a>
+      <div>
+        <p class="auth-quote">"Every great career starts with one application."</p>
+        <p class="auth-quote-by">— Rojgar Setu team</p>
+      </div>
+    </div>
+    <div class="auth-form-panel">
+      <div class="form-card narrow">
+        <h2>Create your account</h2>
+        <p class="muted">Takes less than a minute. No credit card required.</p>
+        <div class="auth-error" id="register-error"></div>
+        <form id="register-form" novalidate>
+          <div class="form-group">
+            <label for="reg-name">Full name <span class="req">*</span></label>
+            <input type="text" id="reg-name" required>
+          </div>
+          <div class="form-group">
+            <label for="reg-email">Email <span class="req">*</span></label>
+            <input type="email" id="reg-email" required>
+          </div>
+          <div class="form-group">
+            <label for="reg-password">Password <span class="req">*</span></label>
+            <input type="password" id="reg-password" required minlength="6">
+            <span class="helper-text">At least 6 characters.</span>
+          </div>
+          <div class="form-group">
+            <label for="reg-confirm">Confirm password <span class="req">*</span></label>
+            <input type="password" id="reg-confirm" required>
+          </div>
+          <div class="form-group">
+            <label>I am a <span class="req">*</span></label>
+            <div class="radio-pill-row">
+              <label class="radio-pill"><input type="radio" name="role" value="Job Seeker" checked> Job Seeker</label>
+              <label class="radio-pill"><input type="radio" name="role" value="Employer"> Employer</label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Create account</button>
+        </form>
+        <p class="auth-switch">Already have an account? <a href="#" data-nav="login">Log in</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= ABOUT PAGE ================= -->
+<div class="page" id="page-about">
+  <section>
+    <div class="container">
+      <div class="section-header center">
+        <span class="eyebrow">About us</span>
+        <h2 class="section-title">Building the bridge between talent and opportunity</h2>
+      </div>
+
+      <div class="about-grid">
+        <div>
+          <p>Rojgar Setu started as a project with one goal: make it simple for job seekers across India to find genuine openings, and just as simple for small businesses to find the right person fast.</p>
+          <p>No subscriptions for employers, no fees for job seekers, and no clutter — just a direct line between the two sides of the hiring process.</p>
+
+          <div class="value-list">
+            <div class="value-item">
+              <div class="value-icon">✓</div>
+              <div>
+                <strong>Free for job seekers</strong>
+                <p class="mt-0" style="margin-top:4px;">Search, apply and track every application without paying anything.</p>
+              </div>
+            </div>
+            <div class="value-item">
+              <div class="value-icon">⚡</div>
+              <div>
+                <strong>Fast for employers</strong>
+                <p class="mt-0" style="margin-top:4px;">Publish a listing in under two minutes and start receiving applications the same day.</p>
+              </div>
+            </div>
+            <div class="value-item">
+              <div class="value-icon">📍</div>
+              <div>
+                <strong>Built for every city</strong>
+                <p class="mt-0" style="margin-top:4px;">From metros to smaller towns, openings are organised by location and category.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <h3 style="margin-bottom:6px;">Get in touch</h3>
+          <p class="muted">Questions, feedback or a partnership idea — send us a note.</p>
+          <form id="contact-form" novalidate>
+            <div class="form-group">
+              <label for="contact-name">Your name <span class="req">*</span></label>
+              <input type="text" id="contact-name" required>
+            </div>
+            <div class="form-group">
+              <label for="contact-email">Email <span class="req">*</span></label>
+              <input type="email" id="contact-email" required>
+            </div>
+            <div class="form-group">
+              <label for="contact-message">Message <span class="req">*</span></label>
+              <textarea id="contact-message" required placeholder="How can we help?"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Send message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-brand">
+        <span class="brand-mark"><svg viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 17 L7 7 L12 13 L17 4 L23 17" stroke="#F7F6F2" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        Rojgar Setu
+      </div>
+      <p style="color:rgba(247,246,242,.7); max-width:280px;">The bridge between your skills and your next opportunity. Built for job seekers and employers across India.</p>
+      <div class="tag-bar">
+        <a href="#" aria-label="Twitter">Twitter</a>
+        <a href="#" aria-label="LinkedIn">LinkedIn</a>
+        <a href="#" aria-label="Instagram">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>For Job Seekers</h4>
+      <ul>
+        <li><a href="#" data-nav="jobs">Browse jobs</a></li>
+        <li><a href="#" data-nav="register">Create a profile</a></li>
+        <li><a href="#">Career advice</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>For Employers</h4>
+      <ul>
+        <li><a href="#" data-nav="post-job">Post a job</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Employer guide</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#" data-nav="about">About us</a></li>
+        <li><a href="#" data-nav="about">Contact</a></li>
+        <li><a href="#">Privacy policy</a></li>
+        <li><a href="#">Terms of use</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2026 Rojgar Setu. Built as a student / portfolio project.</span>
+    <span>Made with care in India 🇮🇳</span>
+  </div>
+</footer>
+
+<!-- ================= JOB DETAILS / APPLY MODAL ================= -->
+<div class="modal-overlay" id="job-modal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-job-title">
+    <div class="modal-head">
+      <div>
+        <h2 id="modal-job-title" style="margin-bottom:4px;"></h2>
+        <p class="muted" id="modal-job-company" style="margin:0;"></p>
+      </div>
+      <button class="modal-close" id="modal-close-btn" aria-label="Close dialog">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="job-meta" id="modal-job-meta"></div>
+      <p class="job-salary" id="modal-job-salary" style="margin-top:14px;"></p>
+
+      <h4>About this role</h4>
+      <p id="modal-job-description"></p>
+
+      <h4>What you'll need</h4>
+      <ul id="modal-job-requirements"></ul>
+
+      <hr class="modal-divider">
+
+      <div id="apply-section">
+        <button class="btn btn-primary btn-block" id="show-apply-form-btn" type="button">Apply now</button>
+      </div>
+
+      <form id="apply-form" style="display:none;" novalidate>
+        <div class="form-group">
+          <label for="apply-name">Full name <span class="req">*</span></label>
+          <input type="text" id="apply-name" required>
+        </div>
+        <div class="form-group">
+          <label for="apply-email">Email <span class="req">*</span></label>
+          <input type="email" id="apply-email" required>
+        </div>
+        <div class="form-group">
+          <label for="apply-phone">Phone number <span class="req">*</span></label>
+          <input type="tel" id="apply-phone" required>
+        </div>
+        <div class="form-group">
+          <label for="apply-note">Cover note</label>
+          <textarea id="apply-note" placeholder="A line or two about why you're a good fit (optional)."></textarea>
+        </div>
+        <div class="form-foot">
+          <button type="button" class="btn btn-ghost" id="cancel-apply-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit application</button>
+        </div>
+      </form>
+
+      <div class="form-success" id="apply-success">
+        <div class="check-circle">✓</div>
+        <h3>Application sent</h3>
+        <p class="muted">We've recorded your application for this role. The employer will reach out by email if you're shortlisted.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="script01.js"></script>
+</body>
+</html>
